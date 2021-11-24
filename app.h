@@ -1,0 +1,170 @@
+#ifndef APP_H
+#define APP_H
+
+//
+// App.h
+//
+//  Created on: 01/10/2021
+//      Author: Angel Rico
+//
+
+#include "Product.h"
+#include "graph.h"
+#include "sorts.h"
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <list>
+#include <fstream>
+#include <sstream>
+using namespace std;
+
+/**
+ * App: main structure
+ * @file: app.h
+ * @author: Angel Rico
+ */
+class App{
+    private:
+        void loadListProducto(vector<Product*>&);
+		void loadGrafo(Graph<Product*>&);
+
+        vector<Product*> productos;
+		Graph<Product*> recomendaciones;
+
+        int menuMain();
+		void opcion1();
+		void opcion2();
+		void listaProducto();
+		bool validaOpcion(int op,int inf, int sup);
+    public:
+        App(){}
+        ~App();
+        void start();
+};
+
+
+/**
+ * @brief destructor
+ */
+App::~App(){}
+
+
+void App::start(){
+    loadListProducto(productos);
+	recomendaciones.setNumNodes(productos.size());
+	loadGrafo(recomendaciones);
+
+	int op = 0;
+	do{
+		op = menuMain();
+		switch (op){
+		case 1:
+			listaProducto();
+			break;
+		case 2:
+			opcion2();
+			break;
+		default:
+			cout << "\n              ¡¡¡ADIOS!!\n";
+			break;
+		}
+
+	} while(op != 3);
+
+}
+
+int App::menuMain(){
+	bool ban = true;
+    int op=0; 
+
+    while (ban){
+        cout << "\n*******************************************";
+        cout << "\n                MENU:\n";
+        cout << "*******************************************\n";
+        cout << "1. Lista productos\n";
+        cout << "2. Generar recomendacion \n";
+        cout << "3. Salir \n";
+        cout << "*******************************************\n";
+        
+        cout << "\nOpción: "; cin>>op;
+        ban = validaOpcion(op,1,3);
+    } 
+
+    return op;
+}
+
+bool App::validaOpcion(int op,int inf, int sup){
+    bool ban = true;
+    if ((op>=inf)&&(op<=sup)){
+        ban = false;
+    }else{
+        cout << "\n   ¡¡¡Introduce una opción valida!!! \n";
+    }
+    return ban;
+}
+
+
+void App::listaProducto(){
+	cout << "\n\tID\tNombre\t\tPrecio";
+	vector<Product*>::iterator it;
+	int i=1;
+	for(it = productos.begin(); it != productos.end(); ++it){
+		cout << "\n" << i << ".-  " << (*it)->printLista();
+		i++;
+	}	
+}
+
+
+void App::opcion2(){
+	listaProducto();
+	int i, index = 1;
+	cout << "\n\nNumero:"; cin >> i;
+	vector<Product*>::iterator it = productos.begin();
+	while (i != index){
+		++it;
+		index++;
+	}
+	cout << recomendaciones.printAdjList(*it);
+}
+
+
+void App::loadListProducto(vector<Product*> &l){
+	string line;
+	ifstream file;
+
+	file.open("examplesProducts.csv");
+	getline(file, line);
+
+	string id, name;
+    int numConection;
+    float price;
+
+	while (getline(file, line)){
+		stringstream ss(line);
+		ss >> id >> name >> numConection >> price;
+		l.push_back(new Product(id, name, numConection, price));
+	}
+}
+
+void App::loadGrafo(Graph<Product*> &g){
+
+	vector<Product*> p(productos);
+	Sorts<Product*> sorts;
+	sorts.ordenaMerge(p);
+	for(int (i) = 0; i < p.size(); i++){
+		
+		if( i < (p.size()-1)){
+			g.addEdgeAdjList(p[i],p[i+1]);
+			if (i < (p.size()-2) )	g.addEdgeAdjList(p[i],p[i+2]);
+		}
+		if (i != 0){
+			g.addEdgeAdjList(p[i],p[i-1]);
+			if (i != 1)	g.addEdgeAdjList(p[i],p[i-2]);
+		}
+	
+	}
+
+}
+
+#endif

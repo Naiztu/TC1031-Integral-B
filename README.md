@@ -17,6 +17,10 @@ Se desea saber el menú que se encuentra y desplegarlo para presentarlo o record
 _En caso que se necesite recomendar una hamburguesa, cada una tiene un numero de relación, que identifica que tanto se relacionan con otras. Se opto por grafos que contendran las relaciones mas cercanas._
 
 
+### **Tercera Opción:** 
+_Mediante un Set ordena el numero de conectividad entre los productos de menor a mayor, para posterior presentarlo en lista._
+
+
 ## **Análisis de complejidad** ⚙️ 
 
 *   ### **Método Merge / sorts.h**
@@ -25,10 +29,13 @@ _En caso que se necesite recomendar una hamburguesa, cada una tiene un numero de
     _Como siempre se muestra todo el menú, se necesita iterar toda la lista, por lo que se entiende por una complejidad de O(n)._
 *   ### **Grafos**
     _Para agregar el grafo se usa un método con complejidad O(n), ya que se itera toda la lista de productos, también compara el número de relación con las demás, operación constante._
+    ### **Set**
+    _El Set al estar compuesto de un árbol binario, la búsqueda y ordenamiento se ejecuta por pasos cada vez más pequeños al estar condicionando el valor de los nodos. Teniendo una complejidad de O(log(n))._
 
 
 ## **Correciones** 📌
  _Primer avance: Completo._
+ _Segundo avance: Completo._
 
 ## **Lenguaje** 👅
 *  *C++*

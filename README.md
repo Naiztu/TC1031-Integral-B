@@ -7,6 +7,16 @@
 
 #### **_TC1031-Integral-B_**
 Repositorio dedicado al proyecto integral de la materia Programación de estructuras de datos y algoritmos fundamentales
+## **Competencias empleadas para evaluar:** ✅
+**SICT0302B:**
+* _Usa grafos para hacer analisis de información_
+* _Usa un algoritmo de búsqueda en grafos adecuado para resolver un problema_
+
+
+**SEG0702A:**
+* _Investiga e implementa un algoritmo o una estructura de datos que no se vió durante el curso._
+* _Describe cada algoritmo de la estructura (inserción, consulta, etc...) de forma clara y con ejemplos_
+
 
 ## **Logica inicial** ⚙️ 
 ### **Primera Opción:**
@@ -21,7 +31,7 @@ _En caso que se necesite recomendar una hamburguesa, cada una tiene un numero de
 _Mediante un Set ordena el numero de conectividad entre los productos de menor a mayor, para posterior presentarlo en lista._
 
 
-## **Análisis de complejidad** ⚙️ 
+## **Análisis de complejidad** 📈 
 
 *   ### **Método Merge / sorts.h**
     _El algoritmo empleado en esta función, se apoya con un vector auxiliar, y al pasar el resultado de uno a otro, crea una complejidad de O(n), mientras que en otra parte va haciendo operaciones donde los pasos se reducen a la mitad conforme se acomoda, lo que genera una complejidad d O(Log(n)). Juntando estos dos casos, identificamos que la complejidad es de O(n Log(n))_
